@@ -33,6 +33,7 @@ header .shopping {
 
 header .shopping img {
     width: 40px;
+    padding-top: 15px;
 }
 
 header .shopping span {
@@ -43,7 +44,7 @@ header .shopping span {
     align-items: center;
     color: #fff;
     position: absolute;
-    top: -22px;
+    top: 0px;
     left: 99%;
     padding: 3px 10px;
 }
@@ -177,3 +178,8 @@ header .shopping span {
 }
 
 
+#user{
+    font-size: 25px;
+    font-weight: bold;
+    font-style: italic;
+}

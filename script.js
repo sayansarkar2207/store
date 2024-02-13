@@ -6,6 +6,7 @@ const listCard = document.querySelector('.listCard');
 const body = document.querySelector('body');
 const total = document.querySelector('.total');
 const quantity = document.querySelector('.quantity');
+const preuser = sessionStorage.getItem("preuser");
 
 openShopping.addEventListener('click', () => {
   body.classList.add('active');
@@ -14,12 +15,29 @@ closeShopping.addEventListener('click', () => {
   body.classList.remove('active');
 })
 
-let listCards = JSON.parse(localStorage.getItem('listCards')) || [];
+// Function to get user's cart from local storage
+function getUserCart(username) {
+  const userCarts = JSON.parse(localStorage.getItem('userCarts')) || {};
+  return userCarts[username] || [];
+}
+
+// Function to update user's cart in local storage
+function updateUserCart(username, cartItems) {
+  const userCarts = JSON.parse(localStorage.getItem('userCarts')) || {};
+  userCarts[username] = cartItems;
+  localStorage.setItem('userCarts', JSON.stringify(userCarts));
+}
+
+let listCards = getUserCart(preuser) || [];
 
 function initApp() {
-  if (localStorage.getItem('listCards')) {
-    listCards = JSON.parse(localStorage.getItem('listCards'));
+  if (getUserCart(preuser)) {
+    listCards = getUserCart(preuser) || [];
+    document.getElementById("user").textContent=preuser;
     reloadCart();
+  }
+  if (preuser==null){
+    document.getElementById("user").textContent="Please Login";
   }
   products.forEach((value, key) => {
     const newDiv = document.createElement('div');
@@ -56,7 +74,7 @@ function addToCart(key) {
     listCards[key].quantity = 1;
   }
   reloadCart();
-  localStorage.setItem('listCards', JSON.stringify(listCards));
+  updateUserCart(preuser, listCards);
 }
 
 // Function to reload the cart
@@ -133,7 +151,7 @@ function changeQuantity(key, quantity) {
     listCards[key].price = quantity * products[key].price;
   }
   reloadCart();
-  localStorage.setItem('listCards', JSON.stringify(listCards));
+  updateUserCart(preuser, listCards);
 }
 initApp();
 

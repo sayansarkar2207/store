@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("User not found. Please register first.");
             return;
         }
+        sessionStorage.setItem("preuser", username);
 
         // Check if the password matches
         if (user.password === password) {

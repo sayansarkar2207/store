@@ -64,11 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
             const password = document.getElementById("password").value;
 
             // Check if the user already exists
-            const existingUserIndex = users.findIndex((user) => user.email === email);
-            const existingUser = users.find((user) => user.email === email);
+            
+            const existingUser = users.find((user) => user.username === username);
             if (existingUser) {
-                console.log("User already exists, cannot register again with the same email.");
-                alert("User already exists, cannot register again with the same email.");
+                console.log("User already exists, cannot register again with the same username.");
+                alert("User already exists, cannot register again with the same username.");
+                return;
+            }
+            const existingUser1 = users.find((user) => user.email === email);
+            if (existingUser1) {
+                const existingUserIndex = users.findIndex((user) => user.email === email);
+                alert(`User already exists, with username ${users[existingUserIndex].username}. Please Login`);
                 return;
             }
             
