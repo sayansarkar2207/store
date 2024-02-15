@@ -183,3 +183,7 @@ header .shopping span {
     font-weight: bold;
     font-style: italic;
 }
+
+.basket:hover {
+    background-color: red !important;
+}

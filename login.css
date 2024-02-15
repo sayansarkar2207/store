@@ -52,3 +52,8 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.register-btn{
+    margin-top: 50px;
+    width: 300px;
+}

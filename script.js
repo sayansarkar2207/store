@@ -37,7 +37,11 @@ function initApp() {
     reloadCart();
   }
   if (preuser==null){
-    document.getElementById("user").textContent="Please Login";
+    window.location.href = 'login.html';
+  }
+  else
+  {
+    document.getElementById("login").textContent="Logout";
   }
   products.forEach((value, key) => {
     const newDiv = document.createElement('div');
@@ -56,7 +60,13 @@ function initApp() {
   
     const button = document.createElement('button');
     button.textContent = 'Add To Cart';
-    button.addEventListener('click', () => addToCart(key));
+    button.addEventListener('click', function() {
+      addToCart(key);
+      this.textContent = 'In Basket';
+      this.style.cssText = 'cursor: not-allowed;';
+      this.setAttribute('class', 'basket');
+
+  });
   
     newDiv.appendChild(img);
     newDiv.appendChild(title);
@@ -85,7 +95,7 @@ function reloadCart() {
   listCards.forEach((value, key) => {
     if (value != null) {
     totalPrice = totalPrice + value.price;
-    count = count + value.quantity;
+    count = count + 1;
     
       let newDiv = document.createElement('li');
     
@@ -153,7 +163,6 @@ function changeQuantity(key, quantity) {
   reloadCart();
   updateUserCart(preuser, listCards);
 }
-initApp();
 
 // Function to handle successful login
 function handleSuccessfulLogin(username) {
@@ -167,15 +176,14 @@ initApp();
 export { handleSuccessfulLogin };
 
 
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
-  const registerButton = document.querySelector('.register-btn');
+  const registerButton = document.querySelector('.login-btn');
 
   registerButton.addEventListener('click', function() {
-      window.location.href = 'register.html';
+      sessionStorage.clear();
+      window.location.href = 'login.html';
   });
 });
+
+
+
